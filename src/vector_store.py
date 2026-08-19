@@ -1,15 +1,18 @@
 import chromadb
-from pathlib import Path
 
 DB_PATH = "chroma_db"
 COLLECTION_NAME = "resumes"
 
+_client = None
+_collection = None
+
 
 def get_collection():
-    """Get or create the persistent ChromaDB collection."""
-    client = chromadb.PersistentClient(path=DB_PATH)
-    collection = client.get_or_create_collection(name=COLLECTION_NAME)
-    return collection
+    global _client, _collection
+    if _collection is None:
+        _client = chromadb.PersistentClient(path=DB_PATH)
+        _collection = _client.get_or_create_collection(name=COLLECTION_NAME)
+    return _collection
 
 
 def add_chunks(chunks: list, embeddings) -> None:
