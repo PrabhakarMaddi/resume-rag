@@ -1,7 +1,6 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
-# all-MiniLM-L6-v2: small, fast, good baseline. Downloads once (~80MB), then fully local.
 MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 _model = None
